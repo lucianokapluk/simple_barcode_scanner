@@ -785,11 +785,32 @@ public class CameraSource {
      * @param desiredHeight the desired height of the camera preview frames
      * @return the selected preview and picture size pair
      */
-    private static SizePair selectSizePair(Camera camera, int desiredWidth, int desiredHeight) {
-        List<Camera.Size> sizes = camera.getParameters().getSupportedPreviewSizes();
-        Camera.Size optimalSize = getOptimalPreviewSize(sizes, desiredWidth, desiredHeight);
-        
-        return (new SizePair(optimalSize, null));
+     private static SizePair selectSizePair(Camera camera, int desiredWidth, int desiredHeight) {
+        //steven 2022.06.02 mark
+        //List<SizePair> validPreviewSizes = generateValidPreviewSizeList(camera);
+        //
+        // // The method for selecting the best size is to minimize the sum of the differences between
+        // // the desired values and the actual values for width and height.  This is certainly not the
+        // // only way to select the best size, but it provides a decent tradeoff between using the
+        // // closest aspect ratio vs. using the closest pixel area.
+        // SizePair selectedPair = null;
+        // int minDiff = Integer.MAX_VALUE;
+        // for (SizePair sizePair : validPreviewSizes) {
+        //     Size size = sizePair.previewSize();
+        //     int diff = Math.abs(size.getWidth() - desiredWidth) +
+        //             Math.abs(size.getHeight() - desiredHeight);
+        //     if (diff < minDiff) {
+        //         selectedPair = sizePair;
+        //         minDiff = diff;
+        //     }
+        // }
+        //
+        // return selectedPair;
+
+        //steven 2022.06.02 add
+        android.hardware.Camera.Size stevenSize = getOptimalPreviewSize(camera.getParameters().getSupportedPreviewSizes(), desiredWidth, desiredHeight);
+        return (new SizePair(stevenSize, null));
+
     }
 
     /**
